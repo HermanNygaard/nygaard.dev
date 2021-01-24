@@ -8,9 +8,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <html lang="en" />
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <meta name="description" content="Herman Nygaard" />
         <title>nygaard.dev – Herman Nygaard</title>
       </Head>
       <ChakraProvider resetCSS theme={theme}>
