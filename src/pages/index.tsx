@@ -6,11 +6,11 @@ import Mail from "../assets/mail.svg";
 import SocialButton from "../components/SocialButton";
 
 const Index = () => (
-  <Flex h="100vh" align="center" direction="column" p={10}>
+  <Flex align="center" direction="column" p={10}>
     <Heading mt="10vh" mb="5vh" p={0} fontSize={["10vw", "6vw"]}>
       Herman Nygaard‍
     </Heading>
-    <Text fontSize="2xl">
+    <Text align="center" fontSize="2xl">
       Computer science student and developer at the University of Oslo.
     </Text>
     <Flex mt="3vh" justify="space-around">
