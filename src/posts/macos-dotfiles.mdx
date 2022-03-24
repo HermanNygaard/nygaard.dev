@@ -1,0 +1,90 @@
+---
+title: Dotfiles for macOS
+date: 2022-03-24
+excerpt: Manage your dotfiles with Stow Brewfile
+published: true
+---
+
+Storing all your configs in a single place makes changing between Macs a breeze.
+In this article I'll explain how I store my dotfiles for easy version control and some of the tools I use.
+For now it's the bare necessities but it gets the job done.  
+[My dotfiles can be found here](https://github.com/HermanNygaard/dotfiles) (feel free to fork it!)
+
+## Symlinking with GNU Stow
+
+Stow is a neat little program that creates symlinks to my home directory from `~/.dotfiles` by structuring
+files the same way you would in your home directory:
+
+```
+~ /.dotfiles/
+  - zsh/.zshrc
+  - nvim/.config/nvim
+```
+
+As you can see the directory names (zsh, nvim) are just used to help you organize your dotfiles,
+while the content inside is what will get symlinked to your ~ directory.  
+An example:  
+Zsh saves it's config directly under your home dir, `~/.zshrc`, while nvim saves its config
+under `~/.config/nvim` which is why we use `.config` as the second part of the path.
+
+After running `stow zsh && stow nvim` ~ will have these symlinks:
+
+```
+~ /
+ - .zshrc
+ - .config/nvim
+```
+
+This way one can easily edit and version control dotfiles in the ` ~/.dotfiles/` directory.
+
+## Homebrew and Brewfile
+
+To manage my packages I use Homebrew.
+All installed packages can be stored in a `Brewfile`, a file with all your brew packages listed.
+The command `brew bundle dump --describe` will create a Brewfile. The `describe` flag adds a short comment over
+each line describing what the package does.  
+Then run `brew bundle` to install all packages.  
+By having a `.Brewfile` in your ~ directory it will be used as a global file,
+which is convenient so you can run `bundle` or `bundle dump` anywhere with the `--global` flag.
+
+Some apps I have in my Brewfile and recommend are:
+
+- Rectangle, my favorite window manager for macOS
+- iTerm, terminal emulator
+
+## Visual Studio Code
+
+For VS Code it seems like the easiest option simply is to use the Settings Sync feature in VS Code.
+I would prefer a config file that you could dump all settings and extensions into, but couldn't
+find an easy way to do this.
+
+## Setup script
+
+In the README I have a simple script you can run from a brand new Mac:
+
+```bash
+# Installs git
+xcode-select --install
+git clone https://github.com/HermanNygaard/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles; source setup.sh
+```
+
+Here is the `setup.sh` script, which installs all Brew packages as well as ohmyzsh:
+
+```
+#!/usr/bin/env zsh
+
+echo ">>>>>Installing homebrew"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" </dev/null ## /dev/null skips pressing enter for the installation
+brew bundle --file=~/.dotfiles/homebrew/.Brewfile
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
+## Further endeavours
+
+As my time was fairly limited when setting this up I still have some things left I want to look into:
+
+- Create a simple script to run stow on all my directories in the setup script
+- Native MacOS settings
+- iTerm settings

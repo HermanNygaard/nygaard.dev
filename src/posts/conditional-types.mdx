@@ -1,0 +1,48 @@
+---
+title: Dotfiles for macOS
+date: 2022-24-03
+excerpt: Manage your dotfiles with Stow and a Brewfile
+published: false
+---
+
+Leveraging the power of TypeScript to improve DX and reduce bugs in React with conditional props.
+
+## Either or conditional prop
+
+check npm package
+
+next image component - link to src
+
+```jsx
+<Button text="Click me!" />
+<Button>
+    <span>Click me! <img src=".." /></span>
+</Button>
+```
+
+By adding `prop?: never`, we let TypeScript know that this prop is not allowed.
+
+```ts
+type ImageSize =
+  | { width?: never; height?: never; layout: "fill" }
+  | { width: number; height: number; layout?: "responsive" | "fixed" };
+```
+
+This roughly translates to: if we omit the height and width, the layout _has_ to be "fill".
+If we decide to pass a fixed height and width, we can omit the layout prop or pass "responsive" or "fixed".
+This API might seem familiar to you, as it is exactly what Next does in it's Image component: [src](https://github.com/vercel/next.js/blob/65c22167c8b797ae8282c9c5301499301a54ff74/packages/next/client/image.tsx#L69)
+
+## Conditional prop, only allow if another prop is passed
+
+I like to think of this _ as if this, then that_
+
+Let's continue on with our button example:
+We want to add the option to render our button as an anchor, but keep the button styling and props.
+
+```jsx
+// Renders a button node
+<Button>Foo</Button>
+
+// Renders an anchor as the root node
+<Button as="a" href="/faq">Go to FAQs</Button>
+```
