@@ -5,8 +5,9 @@ export default function Document(props) {
     <Html lang="en">
       <Head>
         <link rel="shortcut icon" href="/favicon.ico" />
-        <title>nygaard.dev – Herman Nygaard</title>
         <meta name="description" content="Herman Nygaard personal website" />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+        <title>nygaard.dev – Herman Nygaard</title>
       </Head>
       <body className="bg-white dark:bg-slate-800 text-black dark:text-white">
         <Main />

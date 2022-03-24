@@ -58,7 +58,14 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     mdxOptions: {
       rehypePlugins: [
         rehypeSlug,
-        [rehypeAutoLink, { behavior: "wrap" }],
+        [
+          rehypeAutoLink,
+          {
+            properties: {
+              className: ["anchor"],
+            },
+          },
+        ],
         rehypeHiglight,
       ],
     },
