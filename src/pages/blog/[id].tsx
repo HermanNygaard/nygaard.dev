@@ -11,7 +11,10 @@ import matter from "gray-matter";
 import { Counter } from "components/Counter";
 import path from "path";
 import { readFileSync } from "fs";
-const components = { Counter };
+import { DarkmodeSwitch } from "components/DarkmodeSwitch";
+import "highlight.js/styles/atom-one-dark.css";
+
+const components = { Counter, DarkmodeSwitch };
 
 type MDXPost = {
   mdxSource: MDXRemoteSerializeResult<Record<string, unknown>>;

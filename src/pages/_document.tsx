@@ -9,7 +9,7 @@ export default function Document(props) {
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
         <title>nygaard.dev – Herman Nygaard</title>
       </Head>
-      <body className="bg-white dark:bg-slate-800 text-black dark:text-white">
+      <body>
         <Main />
         <NextScript />
       </body>
