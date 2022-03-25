@@ -13,6 +13,7 @@ import path from "path";
 import { readFileSync } from "fs";
 import { DarkmodeSwitch } from "components/DarkmodeSwitch";
 import "highlight.js/styles/atom-one-dark.css";
+import Head from "next/head";
 
 const components = { Counter, DarkmodeSwitch };
 
@@ -24,6 +25,9 @@ type MDXPost = {
 export default function Blog({ mdxSource, meta }: MDXPost) {
   return (
     <div className="max-w-2xl w-full flex-grow p-3 flex flex-col items-start justify-center mx-auto mb-20">
+      <Head>
+        <title>{meta.title}</title>
+      </Head>
       <div className="mb-4">
         <Link href="/blog">
           <a className="text-blue-800  dark:text-gray-200">← Back to posts</a>
