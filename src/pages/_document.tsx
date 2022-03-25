@@ -6,7 +6,10 @@ export default function Document(props) {
       <Head>
         <link rel="shortcut icon" href="/favicon.ico" />
         <meta name="description" content="Herman Nygaard personal website" />
-        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter&display=optional"
+          rel="stylesheet"
+        />
         <title>nygaard.dev – Herman Nygaard</title>
       </Head>
       <body>

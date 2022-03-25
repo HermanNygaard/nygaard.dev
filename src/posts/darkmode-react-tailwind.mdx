@@ -16,7 +16,8 @@ module.exports = {
 ```
 
 Then add global light/dark styles to your index stylesheet in your app:
-(hint: if you are using next.js, put this in the file being import in app.tsx and index.js for CRA)
+(hint: put this in the same file where you have the `@tailwind base` config,
+if you are using next.js, it's the stylesheet being imported in `_app.jsx` and for create-react-app `index.js`)
 
 ```css
 @tailwind base;
@@ -44,7 +45,7 @@ export function DarkmodeSwitch() {
 }
 ```
 
-Add an onClick handler to toggle between the modes, also we store it in localStorage for later.
+Add an onClick handler to toggle between the modes, let's also store it in localStorage for later.
 
 ```jsx
 const handleClick = () => {
@@ -71,7 +72,7 @@ useEffect(() => {
 }, []);
 ```
 
-Let's add some cool icons and styling, I'll just show the finished code:
+Finally let's add some cool icons and styling, and we get our finished code:
 
 ## Full code
 
@@ -138,10 +139,10 @@ export function DarkmodeSwitch() {
 }
 ```
 
-The source code can also be found [here](https://github.com/HermanNygaard/nygaard.dev/blob/main/src/components/DarkmodeSwitch.tsx)
+[The source code can also be found here](https://github.com/HermanNygaard/nygaard.dev/blob/main/src/components/DarkmodeSwitch.tsx)
 
 ## Wrapping up
 
-Thats it! We could improve this more by on default use the preferred browser theme, and also avoiding a flash of light,
-but this should get you pretty far.
-I recommend this brilliant post by joshwcomeu: https://www.joshwcomeau.com/react/dark-mode/
+Thats it! We could improve this further by on default use the preferred browser theme, and also avoiding a flash of light
+if using SSG/SRR, but this should get you pretty far for now.
+[I also recommend this brilliant post by joshwcomeu](https://www.joshwcomeau.com/react/dark-mode/)
