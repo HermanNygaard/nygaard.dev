@@ -10,7 +10,6 @@ export default function Document(props) {
           href="https://fonts.googleapis.com/css2?family=Inter&display=optional"
           rel="stylesheet"
         />
-        <title>nygaard.dev – Herman Nygaard</title>
       </Head>
       <body>
         <Main />

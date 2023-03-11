@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://nygaard.dev
+
+# Sitemaps
+Sitemap: https://nygaard.dev/sitemap.xml

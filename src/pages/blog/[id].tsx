@@ -26,7 +26,7 @@ export default function Blog({ mdxSource, meta }: MDXPost) {
   return (
     <div className="max-w-2xl w-full flex-grow p-3 flex flex-col items-start justify-center mx-auto mb-20">
       <Head>
-        <title>{meta.title}</title>
+        <title>{meta.title} - Herman Nygaard</title>
       </Head>
       <div className="mb-4">
         <Link href="/blog">
@@ -44,6 +44,7 @@ export default function Blog({ mdxSource, meta }: MDXPost) {
 export function getStaticPaths() {
   const paths = getPostIds();
   const mappedPaths = paths.map((path) => ({ params: { id: path } }));
+
   return {
     paths: mappedPaths,
     fallback: false,
