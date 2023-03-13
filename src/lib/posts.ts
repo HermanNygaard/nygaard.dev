@@ -18,8 +18,11 @@ export async function getSortedPosts() {
   const publishedPosts = postsWithMetaData.filter(
     (post) => post.meta.published
   );
+  const sortedPosts = [...publishedPosts].sort(
+    (a, b) => new Date(b.meta.date).valueOf() - new Date(a.meta.date).valueOf()
+  );
 
-  return publishedPosts.sort((a, b) => (a.meta.date < b.meta.date ? -1 : 1));
+  return sortedPosts;
 }
 
 export async function getPostData(id) {
