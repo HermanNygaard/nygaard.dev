@@ -6,12 +6,12 @@ published: true
 
 I have worked on a project called [Supabase-Query](https://github.com/HermanNygaard/supabase-query)
 lately which combines React-Query and Supabase,
-and in that regard have been writing some integration tests for this. In this tutorial,
+which I've been writing some integration tests for. In this tutorial,
 I'll go through how I tested React and Supabase by using
 React Testing Library and Mock Service Worker.
 
 I will use Vite with Vitest for this tutorial, but the concepts can be applied to any framework.
-The final source code for this tutorial can be found
+The source code for the final code can be found
 [here](https://github.com/HermanNygaard/react-supabase-testing-example).  
 If you want to follow along, run these commands:
 
@@ -91,7 +91,10 @@ function App() {
 export default App;
 ```
 
-Add a `.env` file in your project root with the secrets for your database.
+This is a simple app that fetches our todos and displays them,
+and a form for adding new todos.
+
+Now add a `.env` file in your project root with the variables for your Supabase database:
 
 ```
 VITE_SUPABASE_URL=https://foobarbaz.supabase.co
@@ -165,8 +168,7 @@ import { rest } from "msw";
 import { setupServer } from "msw/node";
 import App from "./App";
 import { expect, afterEach } from "vitest";
-import matchers from "@testing-library/jest-dom/matchers";
-expect.extend(matchers);
+import "@testing-library/jest-dom";
 
 // The same URL is used when we call Supabase createClient in App.jsx,
 // which makes us intercept the right URL in MSW
@@ -194,9 +196,12 @@ afterAll(() => server.close());
 test("fetches and displays Todos", async () => {
   render(<App />);
   await waitForElementToBeRemoved(() => screen.queryByText("Loading..."));
-  expect(await screen.findByText(todos[0].name)).toBeDefined();
+  expect(await screen.findByText(todos[0].name)).toBeInTheDocument();
 });
 ```
+
+Here we are creating our server, then in our test waiting for the loading
+text to disappear and then asserting that the todo is displayed.
 
 Finally, run your test with `yarn test` and see that it passes as expected! ✅
 
@@ -215,9 +220,11 @@ const server = setupServer(
     switch (req.method) {
       case "GET":
         return res(ctx.json(todos));
-+     case "POST":
-+       const newTodo = await req.json();
-+       todos.push({ ...newTodo, id: 2 });
+      case "POST":
+        const body = await req.json();
+        const newTodo = { ...body, id: 2 };
+        todos.push(newTodo);
+        return res(ctx.json(newTodo));
       default:
         return res(ctx.json("Unhandled method"));
     }
@@ -241,10 +248,12 @@ test("adds a new todo", async () => {
   fireEvent.change(todoNameInput, { target: { value: newTodoName } });
   fireEvent.click(addTodoButton);
   // Wait for the new todo to be rendered
-  expect(await screen.findByText(newTodoName)).toBeDefined();
+  expect(await screen.findByText(newTodoName)).toBeInTheDocument();
 });
 ```
 
+Here we are entering the new todo name in the input, submitting and
+asserting that the new todo is rendered.  
 Cool! We have now successfully tested that adding a new todo works as expected. 🎉
 
 ## Wrapping up
