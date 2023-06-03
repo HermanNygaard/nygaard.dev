@@ -14,6 +14,7 @@ import { readFileSync } from "fs";
 import { DarkmodeSwitch } from "components/DarkmodeSwitch";
 import "highlight.js/styles/atom-one-dark.css";
 import Head from "next/head";
+import { useEffect } from "react";
 
 const components = { Counter, DarkmodeSwitch };
 
@@ -23,6 +24,16 @@ type MDXPost = {
 };
 
 export default function Blog({ mdxSource, meta }: MDXPost) {
+  useEffect(() => {
+    fetch("/api/view", {
+      method: "POST",
+      body: JSON.stringify({ slug: meta.slug }),
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+  }, [meta.slug]);
+
   return (
     <div className="max-w-2xl w-full flex-grow p-3 flex flex-col items-start justify-center mx-auto mb-20">
       <Head>
@@ -84,6 +95,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       mdxSource,
       meta: {
         title: data.title,
+        slug: context.params.id,
       },
     },
   };
