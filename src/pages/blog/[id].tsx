@@ -14,7 +14,8 @@ import { readFileSync } from "fs";
 import { DarkmodeSwitch } from "components/DarkmodeSwitch";
 import "highlight.js/styles/atom-one-dark.css";
 import Head from "next/head";
-import { useEffect } from "react";
+import cn from "classnames";
+import { useEffect, useState } from "react";
 
 const components = { Counter, DarkmodeSwitch };
 
@@ -24,6 +25,7 @@ type MDXPost = {
 };
 
 export default function Blog({ mdxSource, meta }: MDXPost) {
+  const [count, setCount] = useState();
   useEffect(() => {
     fetch("/api/view", {
       method: "POST",
@@ -31,7 +33,7 @@ export default function Blog({ mdxSource, meta }: MDXPost) {
       headers: {
         "content-type": "application/json",
       },
-    });
+    }).then((res) => res.json().then((r) => setCount(r.count)));
   }, [meta.slug]);
 
   return (
@@ -46,6 +48,14 @@ export default function Blog({ mdxSource, meta }: MDXPost) {
       </div>
       <article className="prose dark:prose-invert w-full">
         <h1>{meta.title}</h1>
+        <div
+          className={cn(
+            "bg-slate-200 h-11 w-24 rounded p-2 inline-block dark:bg-slate-700",
+            !count && "animate-pulse"
+          )}
+        >
+          {count ? `${count} views` : "Loading..."}
+        </div>
         <MDXRemote {...mdxSource} components={components} />
       </article>
     </div>
