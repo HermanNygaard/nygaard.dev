@@ -34,6 +34,9 @@ const Home: NextPage = () => {
           <a className="underline" href="mailto:herman@nygaard.dev">
             Mail
           </a>
+          <a className="underline" target="_blank" href="/resume.pdf">
+            Resume
+          </a>
         </div>
       </div>
     </div>
