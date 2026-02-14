@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { Navbar } from "../components/Navbar";
+import { Analytics } from "@vercel/analytics/react";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const AnyComponent = Component as any;
@@ -9,6 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Navbar />
       <AnyComponent {...pageProps} />
+      <Analytics />
     </>
   );
 }
